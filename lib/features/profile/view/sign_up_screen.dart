@@ -102,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          AutoRouter.of(context).replace(SignInRoute());
+                          AutoRouter.of(context).push(SignInRoute());
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.transparent,

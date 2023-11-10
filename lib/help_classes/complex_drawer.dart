@@ -53,7 +53,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                         if (cdms[index].submenus.isEmpty) {
                           //изменить и делать действия если нет subMenu (раскрытое меню)
                           if (cdms[index].title == 'Пустота') {
-                            AutoRouter.of(context).replace(EmptyRoute());
+                            AutoRouter.of(context).push(EmptyRoute());
                           }
                         } else {
                           //пупупу
@@ -116,7 +116,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                         if (cdms[index].submenus.isEmpty) {
                           //изменить и делать действия если нет subMenu (сдвинутое меню)
                           if (cdms[index].title == 'Пустота') {
-                            AutoRouter.of(context).replace(EmptyRoute());
+                            AutoRouter.of(context).push(EmptyRoute());
                           }
                         } else {
                           //пупупу
@@ -216,15 +216,15 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
         //делать в категориях
         if (menuTitle == 'Профиль') {
           if (subMenu == 'Регистрация') {
-            AutoRouter.of(context).replace(SignUpRoute());
+            AutoRouter.of(context).push(SignUpRoute());
           } else if (subMenu == 'Вход') {
-            AutoRouter.of(context).replace(SignInRoute());
+            AutoRouter.of(context).push(SignInRoute());
           }
         } else if (menuTitle == 'Экскурсии') {
           if (subMenu == 'Маршруты') {
-            AutoRouter.of(context).replace(RouteListRoute());
+            AutoRouter.of(context).push(RouteListRoute());
           } else if (subMenu == 'Точки') {
-            AutoRouter.of(context).replace(PointRoute());
+            AutoRouter.of(context).push(PointRoute());
           }
         }
       },
@@ -247,7 +247,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
       padding: EdgeInsets.all(usePadding ? 8 : 0),
       child: InkWell(
         onTap: () {
-          AutoRouter.of(context).replace(ProfileRoute());
+          AutoRouter.of(context).push(ProfileRoute());
         }, // Передаем функцию обратного вызова для обработки нажатия
         child: AnimatedContainer(
           duration: Duration(seconds: 1),
@@ -289,7 +289,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
           ),
         ),
         onTap: () {
-          AutoRouter.of(context).replace(ProfileRoute());
+          AutoRouter.of(context).push(ProfileRoute());
         },
       ),
     );
