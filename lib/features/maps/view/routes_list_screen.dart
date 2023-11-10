@@ -27,7 +27,7 @@ class _RouteListScreenState extends State<RouteListScreen> {
                   title: Text('Маршрут $index',
                       style: CustomTextStyles.listTitleTextStyle),
                   onTap: () {
-                    AutoRouter.of(context).replace(AboutRouteRoute(id: index.toString()));
+                    AutoRouter.of(context).push(AboutRouteRoute(id: index.toString()));
                     // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
                   },
                   isThreeLine: true,
