@@ -25,19 +25,6 @@ class _AboutRouteScreenState extends State<AboutRouteScreen> {
   _AboutRouteScreenState(this.id);
 
   final String id;
-  late PageController pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    pageController = PageController(initialPage: 0);
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
 
   Widget _body(var height, var width) {
     return CustomScrollView(
@@ -50,94 +37,32 @@ class _AboutRouteScreenState extends State<AboutRouteScreen> {
                 width: width,
                 height: height * 0.3,
                 child: PageView(
-                  controller: pageController,
                   children: [
-                    // Первая страница
-                    Stack(
-                      children: [
-                        Image.network(
-                          "http://peachmeetspine.com/wp-content/uploads/2014/06/16-9-dummy-image2.jpg",
-                          fit: BoxFit.cover,
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          right: 10,
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Color.fromARGB(200, 200, 200, 200),
-                            child: IconButton(
-                              icon: Icon(Icons.arrow_forward_ios_outlined),
-                              color: Colors.white,
-                              onPressed: () {
-                                // Переход на следующую страницу
-                                pageController.nextPage(
-                                  duration: Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    // Вторая страница
-                    Stack(
-                      children: [
-                        FlutterMap(
-                          options: MapOptions(
-                            center: const LatLng(54.78138, 31.88008),
-                            zoom: 15,
-                            maxBounds: LatLngBounds(
-                              const LatLng(54.79954357505826, 31.8166623460582),
-                              const LatLng(
-                                  54.77603517517966, 31.93913057436074),
-                            ),
-                            minZoom: 15,
-                            maxZoom: 18,
-                          ),
-                          children: [
-                            TileLayer(
-                              urlTemplate:
-                                  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            ),
-                            DirectionsLayer(
-                              coordinates: [
-                                DirectionCoordinate(
-                                    54.7858485323177, 31.87947811552349),
-                                DirectionCoordinate(
-                                    54.78372451541789, 31.882868342999693),
-                                DirectionCoordinate(
-                                    54.78252241548917, 31.881140366113904),
-                              ],
-                              color: Colors.red,
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 10,
-                          child: InkWell(
-                            onTap: () {
-                              // Переход на предыдущую страницу
-                              pageController.previousPage(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            },
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor:
-                                  Color.fromARGB(200, 200, 200, 200),
-                              child: Icon(
-                                Icons.arrow_back_ios_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    Image.network("http://peachmeetspine.com/wp-content/uploads/2014/06/16-9-dummy-image2.jpg"),
+            FlutterMap(
+              options: MapOptions(
+                center: const LatLng(54.78138, 31.88008),
+                zoom: 15,
+                maxBounds: LatLngBounds(
+                    const LatLng(54.79954357505826, 31.8166623460582),
+                    const LatLng(54.77603517517966, 31.93913057436074)),
+                minZoom: 15,
+                maxZoom: 18,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                ),
+                DirectionsLayer(
+                  coordinates: [
+                    DirectionCoordinate(54.7858485323177, 31.87947811552349),
+                    DirectionCoordinate(54.78372451541789, 31.882868342999693),
+                    DirectionCoordinate(54.78252241548917, 31.881140366113904),
+                  ],
+                  color: Colors.red,
+                )
+              ],
+            ),
                   ],
                 ),
               ),
