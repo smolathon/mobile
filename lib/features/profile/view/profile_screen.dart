@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:o3d/o3d.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
 import 'package:smolathon_mobile/widgets/appbar_widget.dart';
+import 'package:smolathon_mobile/widgets/exports.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -29,40 +30,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(children: [
             Row(
               children: [
-                Container(
-                    child: InkWell(
-                  onTap: () {},
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: width * 0.22,
-                        backgroundColor: Colors.grey,
-                        child: CircleAvatar(
-                          radius: width * 0.21,
-                          backgroundImage: const NetworkImage(
-                            'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
-                          ),
+                Column(
+                  children: [
+                    CustomCard(
+                      width: width * 0.47,
+                      height: heigth * 0.24,
+                      color: Colors.white,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: width * 0.22,
+                              backgroundColor: Colors.grey,
+                              child: CircleAvatar(
+                                radius: width * 0.205,
+                                backgroundImage: const NetworkImage(
+                                  'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
+                                ),
+                              ),
+                            ),
+                            const Positioned(
+                              bottom: 2,
+                              right: 2,
+                              child: CircleAvatar(
+                                radius: 20,
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                                backgroundColor: Color(0xFF47b881),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: CircleAvatar(
-                          radius: 20,
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                          backgroundColor: Color(0xFF47b881),
-                        ),
+                    ),
+                    CustomCard(
+                      width: width * 0.47,
+                      height: heigth * 0.15,
+                      color: Colors.white,
+                      child: Text(
+                        strLvl,
+                        style: CustomTextStyles.listTitleTextStyle,
                       ),
-                    ],
-                  ),
-                )),
-                Container(
+                    ),
+                  ],
+                ),
+                CustomCard(
+                  width: width * 0.47,
+                  height: heigth * 0.4,
+                  color: Colors.white,
+                  child: Container(
                     alignment: Alignment.centerLeft,
-                    height: heigth * 0.4,
-                    width: width * 0.56,
                     child: Stack(
                       children: <Widget>[
                         O3D(
@@ -75,47 +95,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           cameraOrbit: CameraOrbit(0, 90, 90),
                           disableZoom: true,
                         ),
-                        Positioned.fill(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              strLvl,
-                              style: CustomTextStyles.listTitleTextStyle,
-                            ),
-                          ),
-                        ),
                       ],
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 0.025*heigth,),
-            DecoratedBox(
-
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
-                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
-                child:Text(
-
-                  "Никнейм: крутой2003",
-                  style: TextStyle(fontSize: 20),
-                ))),
-            SizedBox(height: 0.025*heigth,),
+            CustomCard(
+              width: width * 0.9,
+              height: heigth,
+              child: Text('data'),
+            ),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
-                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
-                    child:Text(
-
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(52))),
+                child: const Padding(
+                    padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
+                    child: Text(
                       "Имя: Иван Крутой",
                       style: TextStyle(fontSize: 20),
                     ))),
-            SizedBox(height: 0.025*heigth,),
+            SizedBox(
+              height: 0.025 * heigth,
+            ),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
-                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
-                    child:Text(
-
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(52))),
+                child: const Padding(
+                    padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
+                    child: Text(
                       "Почта: krutoy2003@example.com",
                       style: TextStyle(fontSize: 20),
                     )))
