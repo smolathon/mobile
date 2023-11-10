@@ -25,6 +25,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    PointMapRoute.name: (routeData) {
+      final args = routeData.argsAs<PointMapRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PointMapScreen(
+          key: args.key,
+          id: args.id,
+        ),
+      );
+    },
     PointRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -93,6 +103,44 @@ class AboutRouteRouteArgs {
   @override
   String toString() {
     return 'AboutRouteRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [PointMapScreen]
+class PointMapRoute extends PageRouteInfo<PointMapRouteArgs> {
+  PointMapRoute({
+    Key? key,
+    required String id,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PointMapRoute.name,
+          args: PointMapRouteArgs(
+            key: key,
+            id: id,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PointMapRoute';
+
+  static const PageInfo<PointMapRouteArgs> page =
+      PageInfo<PointMapRouteArgs>(name);
+}
+
+class PointMapRouteArgs {
+  const PointMapRouteArgs({
+    this.key,
+    required this.id,
+  });
+
+  final Key? key;
+
+  final String id;
+
+  @override
+  String toString() {
+    return 'PointMapRouteArgs{key: $key, id: $id}';
   }
 }
 

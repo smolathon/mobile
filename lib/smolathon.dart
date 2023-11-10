@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smolathon_mobile/features/maps/view/point_map_screen.dart';
 import 'package:smolathon_mobile/router/router.dart';
 class MyApp extends StatefulWidget {
   @override

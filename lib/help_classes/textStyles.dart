@@ -4,7 +4,7 @@ class CustomTextStyles {
   static const TextStyle titleTextStyle =
       TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w600);
   static const TextStyle listTitleTextStyle=
-    TextStyle(color: Colors.black, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20);
   static const TextStyle listSecondTextStyle=
   TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16, letterSpacing: 0.5);
   static const TextStyle secondTextStyle = TextStyle(

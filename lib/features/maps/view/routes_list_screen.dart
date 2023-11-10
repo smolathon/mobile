@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:smolathon_mobile/features/maps/view/about_route_screen.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
 
@@ -21,13 +20,14 @@ class _RouteListScreenState extends State<RouteListScreen> {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
+              index+=1;
               return Column(children: [
                 ListTile(
                   leading: const FlutterLogo(size: 64.0),
                   title: Text('Маршрут $index',
                       style: CustomTextStyles.listTitleTextStyle),
                   onTap: () {
-                    AutoRouter.of(context).replace(AboutRouteRoute(id: '123'));
+                    AutoRouter.of(context).replace(AboutRouteRoute(id: index.toString()));
                     // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
                   },
                   isThreeLine: true,

@@ -10,6 +10,10 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
+            page: PointMapRoute.page,
+            path: "/point_map"
+        ),
+        AutoRoute(
           page: SignInRoute.page,
           path: '/signin',
         ),
