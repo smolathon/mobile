@@ -52,8 +52,8 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                         selectedIndex = z ? index : -1;
                         if (cdms[index].submenus.isEmpty) {
                           //изменить и делать действия если нет subMenu (раскрытое меню)
-                          if (cdms[index].title == 'Dashboard') {
-                            //что то
+                          if (cdms[index].title == 'Пустота') {
+                            AutoRouter.of(context).replace(EmptyRoute());
                           }
                         } else {
                           //пупупу
@@ -115,8 +115,8 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                         selectedIndex = index;
                         if (cdms[index].submenus.isEmpty) {
                           //изменить и делать действия если нет subMenu (сдвинутое меню)
-                          if (cdms[index].title == 'Dashboard') {
-                            //что то
+                          if (cdms[index].title == 'Пустота') {
+                            AutoRouter.of(context).replace(EmptyRoute());
                           }
                         } else {
                           //пупупу
@@ -220,12 +220,10 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
           } else if (subMenu == 'Вход') {
             AutoRouter.of(context).replace(SignInRoute());
           }
-        }
-        else if (menuTitle == 'Экскурсии') {
+        } else if (menuTitle == 'Экскурсии') {
           if (subMenu == 'Маршруты') {
             AutoRouter.of(context).replace(RouteListRoute());
-          }
-          else if (subMenu == 'Точки') {
+          } else if (subMenu == 'Точки') {
             AutoRouter.of(context).replace(PointRoute());
           }
         }
@@ -302,6 +300,6 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
 
     CDM(Icons.face, "Профиль", ["Регистрация", "Вход"]),
     CDM(Icons.map_outlined, "Экскурсии", ["Маршруты", "Точки"]),
-    CDM(Icons.settings, "Настройки", []),
+    CDM(Icons.settings, "Пустота", []),
   ];
 }
