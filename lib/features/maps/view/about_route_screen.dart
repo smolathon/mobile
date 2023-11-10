@@ -6,7 +6,9 @@ import '../../../help_classes/exports.dart';
 
 @RoutePage()
 class AboutRouteScreen extends StatefulWidget {
-  const AboutRouteScreen({Key? key}) : super(key: key);
+  const AboutRouteScreen({Key? key, /*@PathParam('id') this.id*/}) : super(key: key);
+
+  final String? id = "123";
 
   @override
   State<AboutRouteScreen> createState() => _AboutRouteScreenState();

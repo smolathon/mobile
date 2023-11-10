@@ -223,7 +223,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
         }
         else if (menuTitle == 'Экскурсии') {
           if (subMenu == 'Маршруты') {
-            AutoRouter.of(context).replace(AboutRouteRoute());
+            AutoRouter.of(context).replace(RouteListRoute());
           }
           else if (subMenu == 'Точки') {
             AutoRouter.of(context).replace(PointRoute());
