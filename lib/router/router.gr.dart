@@ -16,9 +16,14 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     AboutRouteRoute.name: (routeData) {
+      final args = routeData.argsAs<AboutRouteRouteArgs>(
+          orElse: () => const AboutRouteRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AboutRouteScreen(),
+        child: AboutRouteScreen(
+          key: args.key,
+          id: args.id,
+        ),
       );
     },
     PointRoute.name: (routeData) {
@@ -56,16 +61,40 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [AboutRouteScreen]
-class AboutRouteRoute extends PageRouteInfo<void> {
-  const AboutRouteRoute({List<PageRouteInfo>? children})
-      : super(
+class AboutRouteRoute extends PageRouteInfo<AboutRouteRouteArgs> {
+  AboutRouteRoute({
+    Key? key,
+    String? id,
+    List<PageRouteInfo>? children,
+  }) : super(
           AboutRouteRoute.name,
+          args: AboutRouteRouteArgs(
+            key: key,
+            id: id,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AboutRouteRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AboutRouteRouteArgs> page =
+      PageInfo<AboutRouteRouteArgs>(name);
+}
+
+class AboutRouteRouteArgs {
+  const AboutRouteRouteArgs({
+    this.key,
+    this.id,
+  });
+
+  final Key? key;
+
+  final String? id;
+
+  @override
+  String toString() {
+    return 'AboutRouteRouteArgs{key: $key, id: $id}';
+  }
 }
 
 /// generated route for

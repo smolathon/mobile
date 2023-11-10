@@ -28,6 +28,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Row(
             children: [
               Container(
+                  child: InkWell(
+                onTap: () {
+                  
+                },
                 child: Stack(
                   children: [
                     CircleAvatar(
@@ -36,7 +40,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CircleAvatar(
                         radius: width * 0.21,
                         backgroundImage: NetworkImage(
-                            'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg'), //изображение профиля
+                          'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
+                        ),
                       ),
                     ),
                     const Positioned(
@@ -53,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-              ),
+              )),
               Container(
                 alignment: Alignment.centerLeft,
                 height: heigth * 0.4,

@@ -20,20 +20,30 @@ class _RouteListScreenState extends State<RouteListScreen> {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Column(children: [ListTile(
-                    leading: const FlutterLogo(size: 64.0),
-                    title: Text('Маршрут $index', style: CustomTextStyles.listTitleTextStyle),
-                    onTap: (){
-                      AutoRouter.of(context).replace(AboutRouteRoute(/*id: index.toString()*/));
-                      // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
-                    },
-                    isThreeLine: true,
-                    subtitle: const Text('Описание: маршрут очень крутой проходит через все классные точки блин !',
-                        style: CustomTextStyles.listSecondTextStyle, maxLines: 3,
-                        overflow: TextOverflow.ellipsis),
-                  ), const Divider(height: 2, thickness: 0.5,color: Colors.grey,),]);
-                },
+            (BuildContext context, int index) {
+              return Column(children: [
+                ListTile(
+                  leading: const FlutterLogo(size: 64.0),
+                  title: Text('Маршрут $index',
+                      style: CustomTextStyles.listTitleTextStyle),
+                  onTap: () {
+                    AutoRouter.of(context).replace(AboutRouteRoute(id: '123'));
+                    // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
+                  },
+                  isThreeLine: true,
+                  subtitle: const Text(
+                      'Описание: маршрут очень крутой проходит через все классные точки блин !',
+                      style: CustomTextStyles.listSecondTextStyle,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis),
+                ),
+                const Divider(
+                  height: 2,
+                  thickness: 0.5,
+                  color: Colors.grey,
+                ),
+              ]);
+            },
             childCount: 20,
           ),
         ),
