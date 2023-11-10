@@ -30,7 +30,9 @@ class _PointMapScreenState extends State<PointMapScreen> {
       options: MapOptions(
         center: const LatLng(54.78138, 31.88008),
         zoom: 15,
-        
+        maxBounds: LatLngBounds(
+            const LatLng(54.79954357505826, 31.8166623460582),
+            const LatLng(54.77603517517966, 31.93913057436074)),
         minZoom: 15,
         maxZoom: 18,
       ),
