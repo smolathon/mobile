@@ -21,6 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'knight_${x}lvl.glb'; // формирование имени файла с использованием x
     String filePath =
         'assets/glb/$fileName'; // формирование полного пути к файлу
+    String strLvl = 'Рыцарь ${x} уровня';
 
     return CustomScrollView(
       slivers: <Widget>[
@@ -29,9 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Container(
                   child: InkWell(
-                onTap: () {
-                  
-                },
+                onTap: () {},
                 child: Stack(
                   children: [
                     CircleAvatar(
@@ -60,37 +59,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               )),
               Container(
-                alignment: Alignment.centerLeft,
-                height: heigth * 0.4,
-                width: width * 0.56,
-                child: O3D(
-                  src: filePath,
-                  controller: o3dController,
-                  ar: true,
-                  autoRotate: true,
-                  cameraControls: true,
-                  cameraTarget: CameraTarget(0, 2, 0),
-                  cameraOrbit: CameraOrbit(0, 90, 90),
-                  disableZoom: true,
-                ),
-              ),
+                  alignment: Alignment.centerLeft,
+                  height: heigth * 0.4,
+                  width: width * 0.56,
+                  child: Stack(
+                    children: <Widget>[
+                      O3D(
+                        src: filePath,
+                        controller: o3dController,
+                        ar: true,
+                        autoRotate: true,
+                        cameraControls: true,
+                        cameraTarget: CameraTarget(0, 2, 0),
+                        cameraOrbit: CameraOrbit(0, 90, 90),
+                        disableZoom: true,
+                      ),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            strLvl,
+                            style: CustomTextStyles.listTitleTextStyle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
         ),
       ],
     );
   }
-
-/* SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return ListTile(
-              title: Text('Элемент $index'),
-            );
-          },
-          childCount: 20,
-        ),
-      ), */
 
   CustomAppBar _appBar() {
     return CustomAppBar(
