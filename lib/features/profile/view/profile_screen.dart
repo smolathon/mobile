@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: width * 0.56,
                     child: Stack(
                       children: <Widget>[
-                        /*O3D(
+                        O3D(
                           src: filePath,
                           controller: o3dController,
                           ar: true,
@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           cameraTarget: CameraTarget(0, 2, 0),
                           cameraOrbit: CameraOrbit(0, 90, 90),
                           disableZoom: true,
-                        ),*/
+                        ),
                         Positioned.fill(
                           child: Align(
                             alignment: Alignment.bottomCenter,
