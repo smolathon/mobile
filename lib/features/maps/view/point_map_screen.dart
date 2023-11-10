@@ -28,8 +28,13 @@ class _PointMapScreenState extends State<PointMapScreen> {
     return FlutterMap(
       options: MapOptions(
           center: const LatLng(54.78138, 31.88008),
-        zoom: 16,
-        minZoom: 16
+
+        zoom: 15,
+        maxBounds: LatLngBounds(
+            LatLng(54.785647513439166, 31.87085078433421),
+            LatLng(54.78697645359639, 31.896524295791707)
+        ),        minZoom: 15,
+        maxZoom: 19,
       ),
       children: [
         TileLayer(
