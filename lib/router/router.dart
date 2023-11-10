@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:smolathon_mobile/view/view.dart';
+import 'package:smolathon_mobile/features/maps/view/view.dart';
+import 'package:smolathon_mobile/features/profile/view/view.dart';
 
 part 'router.gr.dart';
 
@@ -7,10 +8,6 @@ part 'router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(
-          page: SecondRoute.page,
-          path: '/second',
-        ),
         AutoRoute(
           page: SignInRoute.page,
           path: '/signin',
@@ -24,5 +21,17 @@ class AppRouter extends _$AppRouter {
           path: '/profile',
           initial: true,
         ),
+        AutoRoute(
+          page: AboutRouteRoute.page,
+          path: '/about_route',
+        ),
+        AutoRoute(
+          page: PointRoute.page,
+          path: '/points',
+        ),
+        AutoRoute(
+          page: RouteListRoute.page,
+          path: '/about_route',
+        )
       ];
 }

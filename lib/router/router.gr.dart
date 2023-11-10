@@ -15,10 +15,28 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AboutRouteRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AboutRouteScreen(),
+      );
+    },
+    PointRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PointScreen(),
+      );
+    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ProfileScreen(),
+      );
+    },
+    RouteListRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RouteListScreen(),
       );
     },
     SignInRoute.name: (routeData) {
@@ -37,6 +55,34 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
+/// [AboutRouteScreen]
+class AboutRouteRoute extends PageRouteInfo<void> {
+  const AboutRouteRoute({List<PageRouteInfo>? children})
+      : super(
+          AboutRouteRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AboutRouteRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PointScreen]
+class PointRoute extends PageRouteInfo<void> {
+  const PointRoute({List<PageRouteInfo>? children})
+      : super(
+          PointRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PointRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ProfileScreen]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -51,15 +97,15 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SecondScreen]
-class SecondRoute extends PageRouteInfo<void> {
-  const SecondRoute({List<PageRouteInfo>? children})
+/// [RouteListScreen]
+class RouteListRoute extends PageRouteInfo<void> {
+  const RouteListRoute({List<PageRouteInfo>? children})
       : super(
-          SecondRoute.name,
+          RouteListRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SecondRoute';
+  static const String name = 'RouteListRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

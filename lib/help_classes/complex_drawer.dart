@@ -221,17 +221,13 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
             AutoRouter.of(context).replace(SignInRoute());
           }
         }
-        if (menuTitle == 'Category' && subMenu == "HTML & CSS") {
-          //что то
-        } else if (menuTitle == 'Category' && subMenu == "Javascript") {
-          AutoRouter.of(context).replace(SecondRoute());
-        } else if (menuTitle == 'Posts' && subMenu == "Add") {
-          // Обработка нажатия на "Add" в разделе "Posts"
-        } else {
-          // Добавьте дополнительные условия для других элементов меню
-        }
-        if (menuTitle == 'Dashboard') {
-          //что то
+        else if (menuTitle == 'Экскурсии') {
+          if (subMenu == 'Маршруты') {
+            AutoRouter.of(context).replace(AboutRouteRoute());
+          }
+          else if (subMenu == 'Точки') {
+            AutoRouter.of(context).replace(PointRoute());
+          }
         }
       },
       child: Padding(
@@ -305,16 +301,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
     // CDM(Icons.grid_view, "Control", []),
 
     CDM(Icons.face, "Профиль", ["Регистрация", "Вход"]),
-    CDM(Icons.grid_view, "Dashboard", []),
-    CDM(Icons.subscriptions, "Category",
-        ["HTML & CSS", "Javascript", "PHP & MySQL"]),
-    CDM(Icons.markunread_mailbox, "Posts", ["Add", "Edit", "Delete"]),
-    CDM(Icons.pie_chart, "Analytics", []),
-    CDM(Icons.trending_up, "Chart", []),
-
-    CDM(Icons.power, "Plugins",
-        ["Ad Blocker", "Everything Https", "Dark Mode"]),
-    CDM(Icons.explore, "Explore", []),
-    CDM(Icons.settings, "Setting", []),
+    CDM(Icons.map_outlined, "Экскурсии", ["Маршруты", "Точки"]),
+    CDM(Icons.settings, "Настройки", []),
   ];
 }
