@@ -16,7 +16,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   O3DController o3dController = O3DController();
 
   Widget _body(var heigth, var width) {
-
     int x = 2; // значение переменной x (уровень)
     String fileName =
         'knight_${x}lvl.glb'; // формирование имени файла с использованием x
@@ -51,19 +50,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return ListTile(
-                title: Text('Элемент $index'),
-              );
-            },
-            childCount: 20,
-          ),
-        ),
       ],
     );
   }
+
+/* SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return ListTile(
+              title: Text('Элемент $index'),
+            );
+          },
+          childCount: 20,
+        ),
+      ), */
 
   CustomAppBar _appBar() {
     return CustomAppBar(
