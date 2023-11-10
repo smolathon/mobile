@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
+import 'package:flutter_map_directions/flutter_map_directions.dart';
 
 import '../../../help_classes/exports.dart';
 
@@ -31,15 +32,23 @@ class _PointMapScreenState extends State<PointMapScreen> {
 
         zoom: 15,
         maxBounds: LatLngBounds(
-            LatLng(54.785647513439166, 31.87085078433421),
-            LatLng(54.78697645359639, 31.896524295791707)
+            const LatLng(54.785647513439166, 31.87085078433421),
+            const LatLng(54.78697645359639, 31.896524295791707)
         ),        minZoom: 15,
         maxZoom: 19,
       ),
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        )
+        ),
+        DirectionsLayer(coordinates: [
+    DirectionCoordinate(54.7858485323177, 31.87947811552349),
+
+    DirectionCoordinate(54.78372451541789, 31.882868342999693),
+
+    DirectionCoordinate(54.78252241548917, 31.881140366113904),
+
+        ], color: Colors.red,)
       ],
     );
   }
@@ -54,13 +63,14 @@ class _PointMapScreenState extends State<PointMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: _appBar(),
       body: _body(height, width),
-      drawer: ComplexDrawer(),
+      drawer: const ComplexDrawer(),
     );
   }
 }

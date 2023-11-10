@@ -246,15 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  flutter_osrm:
+  flutter_map_directions:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "429988b0958826adf8c5eb643ee9555358c40fa8"
-      url: "https://github.com/JaffaKetchup/flutter_osrm.git"
-    source: git
-    version: "0.1.0"
+      name: flutter_map_directions
+      sha256: "4868aec1e9db08126db7c53932b261696e8d91e7d0bfca0fe25135256ce437c7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -289,14 +288,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  google_polyline_algorithm:
-    dependency: transitive
-    description:
-      name: google_polyline_algorithm
-      sha256: "357874f00d3f93c3ba1bf4b4d9a154aa9ee87147c068238c1e8392012b686a03"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
   graphs:
     dependency: transitive
     description:
