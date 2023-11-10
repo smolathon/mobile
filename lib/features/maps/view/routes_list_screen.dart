@@ -32,7 +32,7 @@ class _RouteListScreenState extends State<RouteListScreen> {
                   },
                   isThreeLine: true,
                   subtitle: const Text(
-                      'Описание: маршрут очень крутой проходит через все классные точки блин !',
+                      'Описание: Он очень крутой проходит через все классные точки мира блин нафик очень советую его посетить все кто его посещали ставили 5 звёзд после посещения очень классная погода природа атмосфера ээээээээээ !',
                       style: CustomTextStyles.listSecondTextStyle,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis),
@@ -61,8 +61,8 @@ class _RouteListScreenState extends State<RouteListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = mounted ? MediaQuery.of(context).size.height : 10;
+    final width = mounted ? MediaQuery.of(context).size.width : 10;
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: _appBar(),
