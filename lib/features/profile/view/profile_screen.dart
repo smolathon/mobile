@@ -26,67 +26,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
-          child: Row(
-            children: [
-              Container(
-                  child: InkWell(
-                onTap: () {},
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: width * 0.22,
-                      backgroundColor: Colors.grey,
-                      child: CircleAvatar(
-                        radius: width * 0.21,
-                        backgroundImage: NetworkImage(
-                          'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
-                        ),
-                      ),
-                    ),
-                    const Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: CircleAvatar(
-                        radius: 20,
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                        backgroundColor: Color(0xFF47b881),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  height: heigth * 0.4,
-                  width: width * 0.56,
+          child: Column(children: [
+            Row(
+              children: [
+                Container(
+                    child: InkWell(
+                  onTap: () {},
                   child: Stack(
-                    children: <Widget>[
-                      O3D(
-                        src: filePath,
-                        controller: o3dController,
-                        ar: true,
-                        autoRotate: true,
-                        cameraControls: true,
-                        cameraTarget: CameraTarget(0, 2, 0),
-                        cameraOrbit: CameraOrbit(0, 90, 90),
-                        disableZoom: true,
-                      ),
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            strLvl,
-                            style: CustomTextStyles.listTitleTextStyle,
+                    children: [
+                      CircleAvatar(
+                        radius: width * 0.22,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                          radius: width * 0.21,
+                          backgroundImage: const NetworkImage(
+                            'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
                           ),
                         ),
                       ),
+                      const Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: CircleAvatar(
+                          radius: 20,
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          backgroundColor: Color(0xFF47b881),
+                        ),
+                      ),
                     ],
-                  )),
-            ],
-          ),
+                  ),
+                )),
+                Container(
+                    alignment: Alignment.centerLeft,
+                    height: heigth * 0.4,
+                    width: width * 0.56,
+                    child: Stack(
+                      children: <Widget>[
+                        /*O3D(
+                          src: filePath,
+                          controller: o3dController,
+                          ar: true,
+                          autoRotate: true,
+                          cameraControls: true,
+                          cameraTarget: CameraTarget(0, 2, 0),
+                          cameraOrbit: CameraOrbit(0, 90, 90),
+                          disableZoom: true,
+                        ),*/
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              strLvl,
+                              style: CustomTextStyles.listTitleTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+            SizedBox(height: 0.025*heigth,),
+            DecoratedBox(
+
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
+                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
+                child:Text(
+
+                  "Никнейм: крутой2003",
+                  style: TextStyle(fontSize: 20),
+                ))),
+            SizedBox(height: 0.025*heigth,),
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
+                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
+                    child:Text(
+
+                      "Имя: Иван Крутой",
+                      style: TextStyle(fontSize: 20),
+                    ))),
+            SizedBox(height: 0.025*heigth,),
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),borderRadius: const BorderRadius.all(Radius.circular(52))),
+                child: const Padding(padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
+                    child:Text(
+
+                      "Почта: krutoy2003@example.com",
+                      style: TextStyle(fontSize: 20),
+                    )))
+          ]),
         ),
       ],
     );
@@ -108,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.blue.shade50,
       appBar: _appBar(),
       body: _body(height, width),
-      drawer: ComplexDrawer(),
+      drawer: const ComplexDrawer(),
     );
   }
 }
