@@ -16,7 +16,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   O3DController o3dController = O3DController();
 
   Widget _body(var heigth, var width) {
-
     int x = 2; // значение переменной x (уровень)
     String fileName =
         'knight_${x}lvl.glb'; // формирование имени файла с использованием x
@@ -29,14 +28,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Row(
             children: [
               Container(
-                width: width - 200,
-                child: Image.network(
-                    'https://w.forfun.com/fetch/73/733f191603e506ccb1ba5d8674ebe412.jpeg'),
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: width * 0.22,
+                      backgroundColor: Colors.grey,
+                      child: CircleAvatar(
+                        radius: width * 0.21,
+                        backgroundImage: NetworkImage(
+                            'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg'), //изображение профиля
+                      ),
+                    ),
+                    const Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: Color(0xFF47b881),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                height: 300,
-                width: 200,
+                height: heigth * 0.4,
+                width: width * 0.56,
                 child: O3D(
                   src: filePath,
                   controller: o3dController,
@@ -51,19 +72,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return ListTile(
-                title: Text('Элемент $index'),
-              );
-            },
-            childCount: 20,
-          ),
-        ),
       ],
     );
   }
+
+/* SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return ListTile(
+              title: Text('Элемент $index'),
+            );
+          },
+          childCount: 20,
+        ),
+      ), */
 
   CustomAppBar _appBar() {
     return CustomAppBar(
