@@ -48,11 +48,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       right: 0,
                       child: CircleAvatar(
                         radius: 20,
+                        backgroundColor: Color(0xFF47b881),
                         child: Icon(
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: Color(0xFF47b881),
                       ),
                     ),
                   ],
