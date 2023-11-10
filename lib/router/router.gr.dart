@@ -16,8 +16,7 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     AboutRouteRoute.name: (routeData) {
-      final args = routeData.argsAs<AboutRouteRouteArgs>(
-          orElse: () => const AboutRouteRouteArgs());
+      final args = routeData.argsAs<AboutRouteRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: AboutRouteScreen(
@@ -64,7 +63,7 @@ abstract class _$AppRouter extends RootStackRouter {
 class AboutRouteRoute extends PageRouteInfo<AboutRouteRouteArgs> {
   AboutRouteRoute({
     Key? key,
-    String? id,
+    required String id,
     List<PageRouteInfo>? children,
   }) : super(
           AboutRouteRoute.name,
@@ -84,12 +83,12 @@ class AboutRouteRoute extends PageRouteInfo<AboutRouteRouteArgs> {
 class AboutRouteRouteArgs {
   const AboutRouteRouteArgs({
     this.key,
-    this.id,
+    required this.id,
   });
 
   final Key? key;
 
-  final String? id;
+  final String id;
 
   @override
   String toString() {

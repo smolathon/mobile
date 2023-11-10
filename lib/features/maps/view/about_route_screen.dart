@@ -6,19 +6,22 @@ import '../../../help_classes/exports.dart';
 
 @RoutePage()
 class AboutRouteScreen extends StatefulWidget {
-  const AboutRouteScreen({Key? key, this.id,}) : super(key: key);  
+  const AboutRouteScreen({Key? key, required this.id,}) : super(key: key);
 
-  final String? id;
+  final String id;
 
   @override
-  State<AboutRouteScreen> createState() => _AboutRouteScreenState();
+  State<AboutRouteScreen> createState() => _AboutRouteScreenState(id);
 }
 
 class _AboutRouteScreenState extends State<AboutRouteScreen> {
-  
+
+  _AboutRouteScreenState(this.id);
+
+  final String id;
 
   Widget _body(var heigth, var width) {
-    return Center();
+    return Center(child: Text(id),);
   }
 
   CustomAppBar _appBar() {
