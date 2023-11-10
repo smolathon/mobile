@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:smolathon_mobile/features/empty/view/empty.dart';
 import 'package:smolathon_mobile/features/maps/view/view.dart';
 import 'package:smolathon_mobile/features/profile/view/view.dart';
 
@@ -32,7 +33,11 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: AboutRouteRoute.page,
-          path: "/about_route"
+          path: "/about_route",
+        ),
+        AutoRoute(
+          page: EmptyRoute.page,
+          path: '/empty',
         )
       ];
 }

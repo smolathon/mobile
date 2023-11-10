@@ -25,6 +25,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    EmptyRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const EmptyScreen(),
+      );
+    },
     PointRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -94,6 +100,20 @@ class AboutRouteRouteArgs {
   String toString() {
     return 'AboutRouteRouteArgs{key: $key, id: $id}';
   }
+}
+
+/// generated route for
+/// [EmptyScreen]
+class EmptyRoute extends PageRouteInfo<void> {
+  const EmptyRoute({List<PageRouteInfo>? children})
+      : super(
+          EmptyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EmptyRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
