@@ -19,7 +19,7 @@ class _AboutRouteScreenState extends State<AboutRouteScreen> {
 
   CustomAppBar _appBar() {
     return CustomAppBar(
-      title: 'Ваш профиль',
+      title: 'О маршруте',
       backgroundColor: MyColor.darkBlue3D5060,
       iconColor: MyColor.midleGrey7CA3BA,
     );

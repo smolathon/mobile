@@ -13,12 +13,25 @@ class PointScreen extends StatefulWidget {
 
 class _PointScreenState extends State<PointScreen> {
   Widget _body(var heigth, var width) {
-    return Center();
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return ListTile(
+                title: Text('Точка $index'),
+              );
+            },
+            childCount: 20,
+          ),
+        ),
+      ],
+    );
   }
 
   CustomAppBar _appBar() {
     return CustomAppBar(
-      title: 'Ваш профиль',
+      title: "", //здесь сделать название точки
       backgroundColor: MyColor.darkBlue3D5060,
       iconColor: MyColor.midleGrey7CA3BA,
     );
