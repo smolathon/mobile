@@ -274,6 +274,7 @@ class _SignInScreenState extends State<SignInScreen> {
         _saveToken(usernameController.text);
         // Дождитесь завершения сохранения токена
 
+        AutoRouter.of(context).push(ProfileRoute());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Вы успешно вошли'),
