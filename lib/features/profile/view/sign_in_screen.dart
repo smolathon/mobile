@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
+import 'package:smolathon_mobile/model/api/UserModel.dart';
 import 'package:smolathon_mobile/router/router.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
 
@@ -111,6 +112,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           // Действия при нажатии на Вход
+                          User.login(username: "test_user", password: "qwerty_password").then((value) => {
+                            value ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('вы успешный'),
+                          )): ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('вы не успешный'),
+                          ))
+                          }).catchError((){//я панк
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('вы сильно не успешный'),
+                            ));
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white,
