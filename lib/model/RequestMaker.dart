@@ -52,5 +52,5 @@ class RequestMaker{
 
   }
 
-  static String API_URL = "954b-212-3-142-182.ngrok.io";
+  static String API_URL = "f12b-212-3-142-182.ngrok.io";
 }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:o3d/o3d.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
 import 'package:smolathon_mobile/widgets/appbar_widget.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
@@ -19,7 +20,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   late String _selectedImagePath;
-
+  late String _authToken;
   late Future<User> _userData;
 
   @override
@@ -30,8 +31,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'https://thumbs.dreamstime.com/b/та-исман-ш-ема-рыцаря-73835622.jpg';
   }
 
+  _loadSavedValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _authToken = prefs.getString('authToken') ?? "test_user";
+    });
+  }
+
   Future<User> fetchData() async {
-    return User.getByUsername("test_user");
+    await _loadSavedValue();
+    return User.getByUsername(_authToken);
   }
 
   Future<void> _pickImage() async {
@@ -175,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   src: 'assets/glb/knight_${user.level}lvl.glb',
                                   controller: o3dController,
                                   ar: true,
-                                  autoRotate: true,
+                                  autoRotate: false,
                                   cameraControls: true,
                                   cameraTarget: CameraTarget(0, 2, 0),
                                   cameraOrbit: CameraOrbit(0, 90, 90),

@@ -7,6 +7,7 @@ import 'package:smolathon_mobile/model/RequestMaker.dart';
 import 'package:smolathon_mobile/model/api/UserModel.dart';
 import 'package:smolathon_mobile/router/router.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class SignInScreen extends StatefulWidget {
@@ -249,6 +250,8 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  String? authToken; // переменная для хранения токена
+
   Future<void> _login(BuildContext context) async {
     final url = Uri.parse('https://' + RequestMaker.API_URL + '/user/login');
     final Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -264,14 +267,19 @@ class _SignInScreenState extends State<SignInScreen> {
         body: jsonEncode(body),
       );
 
-     
-
       if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = json.decode(response.body);
+
+        // Получите токен из ответа сервера
+        _saveToken(usernameController.text);
+        // Дождитесь завершения сохранения токена
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Вы успешно вошли'),
           ),
         );
+
         // Добавьте необходимый код для обработки успешного входа
       } else if (response.statusCode == 400) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -289,5 +297,16 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       );
     }
+  }
+
+  Future<void> _saveToken(String token) async {
+    // Сохраните токен в хранилище приложения, например, используя пакет shared_preferences
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('authToken', token);
+
+    // Обновите состояние виджета
+    setState(() {
+      authToken = token;
+    });
   }
 }
