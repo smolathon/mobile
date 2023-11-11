@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:o3d/o3d.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
 import 'package:smolathon_mobile/widgets/appbar_widget.dart';
@@ -14,6 +15,26 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final ImagePicker _imagePicker = ImagePicker();
+  late String _selectedImagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedImagePath = 'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg';
+  }
+
+  Future<void> _pickImage() async {
+    final XFile? image =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImagePath = image.path;
+      });
+    }
+  }
+
   O3DController o3dController = O3DController();
 
   Widget _body(var heigth, var width) {
@@ -41,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: heigth * 0.24,
                       color: Colors.white,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: _pickImage,
                         child: Stack(
                           children: [
                             CircleAvatar(
@@ -49,9 +70,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               backgroundColor: Colors.grey,
                               child: CircleAvatar(
                                 radius: width * 0.205,
-                                backgroundImage: const NetworkImage(
-                                  'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg',
-                                ),
+                                backgroundImage:
+                                    NetworkImage(_selectedImagePath),
                               ),
                             ),
                             const Positioned(
