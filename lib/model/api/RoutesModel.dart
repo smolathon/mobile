@@ -56,7 +56,9 @@ class Routes extends MainModel {
         list.add(Routes.fromJson(element));
       }*/
       list = (jsonData["routes"] as List<dynamic>)
-          .map((data) => Routes.fromJson(data))
+          .map((data) {
+            return Routes(id:data["id"].toString(), title: data["title"], description: data["description"], img: data["image"], bounds: LatLngBounds(LatLng(0,0), LatLng(90,90)));
+      })
           .toList(growable: false);
 
       return list;

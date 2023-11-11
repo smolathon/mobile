@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smolathon_mobile/widgets/card_widget.dart';
 import 'package:smolathon_mobile/model/api/RoutesModel.dart';
 
+import '../../../model/api/PointModel.dart';
+
 
 class RoutesListScreen extends StatefulWidget {
   @override
@@ -59,7 +61,9 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
     super.initState();
     Routes.getAllRoutes().then((value) => setState(() {
       routes = value;
+      
     }));
+
   }
 
   List<Routes> routes = List.empty();
@@ -78,17 +82,22 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
         itemCount: routes.length,
         itemBuilder: (context, index) {
           Routes route = routes[index];
-          return ListTile(
+          return CustomCard(
+              width: width * 0.9,
+              height: height * 0.1,
+              child:ListTile(
             title: Text(route.title ?? ''),
             subtitle: Text(route.description ?? ''),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RouteDetails(route: GeoRoute(id: route.id, title: route.title, description: route.description)),
+                  builder: (context) => RouteDetails(route: GeoRoute(id: route.id, title: route.title, description: route.description, points: [
+
+                  ])),
                 ),
               );
-            },);
+            },));
         },
       ),
     );
@@ -102,7 +111,7 @@ class RouteDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 

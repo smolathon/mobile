@@ -39,8 +39,26 @@ class Point extends MainModel {
   }
 
   static Future<Point> getPointById(String id) async {
-    return fromJson(await RequestMaker.request(
-        url: "point/$id", method: HTTP_METHOD.GET));
+    try {
+      List<Point> list = List<Point>.empty(growable: true);
+      final response =
+      await RequestMaker.request(url: "point/$id", method: HTTP_METHOD.GET);
+      final jsonData = json.decode(response);
+      print(jsonData);
+      /*for (var element in jsonData) {
+        list.add(Point.fromJson(element));
+      }*/
+      list = (jsonData["Point"] as List<dynamic>)
+          .map((data) {
+        return Point(id:data["id"].toString(), title: data["title"], description: data["description"], img: data["image"], location: LatLng(data["location"][0], data["location"][1]));
+      })
+          .toList(growable: false);
+
+      return list;
+    } catch (e) {
+      print("Error fetching Point: $e");
+      return List<Point>.empty();
+    }
   }
   static Future<List<Point>> getAllPoint() async {
     List<Point> list = List<Point>.empty(growable: true);
