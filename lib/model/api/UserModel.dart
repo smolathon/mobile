@@ -13,6 +13,7 @@ class User extends Model {
   String? role;
   int? count;
   int? level;
+  String? image;
 
   User({
     required this.username,
@@ -21,6 +22,7 @@ class User extends Model {
     this.role,
     this.count,
     this.level,
+    this.image,
   });
 
   static User fromJson(String jsn) {
@@ -31,8 +33,8 @@ class User extends Model {
         role: jsonString["role"],
         email: jsonString["email"],
         count: jsonString["count"],
-        level: jsonString["level"]);
-        
+        level: jsonString["level"],
+        image: jsonString["image"]);
   }
 
   @override
@@ -42,8 +44,8 @@ class User extends Model {
       "email": email,
       "password": password,
       "role": role,
-      "image": "0",
-      "level":level
+      "image": image,
+      "level": level,
     };
   }
 
@@ -52,25 +54,28 @@ class User extends Model {
         url: "user/$username", method: HTTP_METHOD.GET));
   }
 
-  static Future<bool> login({required String username, required String password}) async {
+  static Future<bool> login(
+      {required String username, required String password}) async {
     return await RequestMaker.requestStatusCode(
-        url: "user/login",
-        method: HTTP_METHOD.POST,
-        body: {
-          "username":username,
-          "password":password,
-        }
-    ) == 200;
+            url: "user/login",
+            method: HTTP_METHOD.POST,
+            body: {
+              "username": username,
+              "password": password,
+            }) ==
+        200;
   }
 
   static Future<User> create(
       {required String username,
       required String email,
       required String password,
-      required String role, 
-      required String level
+      required String role,
+      required String level,
+      required String image
       }) async {
-    return fromJson(await RequestMaker.request(
+    return fromJson(
+      await RequestMaker.request(
         url: "user",
         method: HTTP_METHOD.POST,
         body: {
@@ -78,8 +83,10 @@ class User extends Model {
           "email": email,
           "password": password,
           "role": role,
-          "image": "https://trashbox.ru/files/301039_0b471c/1436787.jpg",
+          "image": image,
           "level": level
-        }));
+        },
+      ),
+    );
   }
 }

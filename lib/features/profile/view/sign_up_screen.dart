@@ -16,6 +16,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   double screenWidth = 0.0;
   double screenHeight = 0.0;
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
@@ -90,9 +93,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child: Column(
               children: [
-                buildCustomTextField('Имя', false),
-                buildCustomTextField('Почта', false),
-                buildCustomTextField('Пароль', true),
+                buildCustomTextField('Имя', false, nameController),
+                buildCustomTextField('Почта', false, emailController),
+                buildCustomTextField('Пароль', true, passwordController),
                 SizedBox(height: screenHeight * 0.1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +172,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget buildCustomTextField(String labelText, bool isPassword) {
+  Widget buildCustomTextField(
+      String labelText, bool isPassword, TextEditingController controller) {
     return SizedBox(
       height: screenHeight * 0.11,
       width: screenWidth * 0.9,
@@ -178,6 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         focusColor: Colors.white,
         fillColor: MyColor.whiteForInputFill,
         isPassword: isPassword,
+        controller: controller,
       ),
     );
   }
