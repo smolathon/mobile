@@ -25,12 +25,6 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    EmptyRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const EmptyScreen(),
-      );
-    },
     PointMapRoute.name: (routeData) {
       final args = routeData.argsAs<PointMapRouteArgs>();
       return AutoRoutePage<dynamic>(
