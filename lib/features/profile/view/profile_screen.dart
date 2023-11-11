@@ -20,8 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   late String _selectedImagePath;
 
-  late User user;
-
   late Future<User> _userData;
 
   @override
@@ -54,7 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     try {
-      final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+      final XFile? image =
+          await _imagePicker.pickImage(source: ImageSource.gallery);
 
       if (image != null) {
         setState(() {
@@ -67,7 +66,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _body(var height, var width) {
-    return FutureBuilder(
+    O3DController o3dController = O3DController();
+
+    return FutureBuilder<User>(
       future: _userData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -79,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Text('Ошибка загрузки данных'),
           );
         } else {
-          User user = snapshot.data as User;
+          User user = snapshot.data!;
 
           return CustomScrollView(
             slivers: <Widget>[
@@ -103,7 +104,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       backgroundColor: Colors.grey,
                                       child: CircleAvatar(
                                         radius: width * 0.205,
-                                        backgroundImage: NetworkImage(_selectedImagePath),
+                                        backgroundImage:
+                                            NetworkImage(_selectedImagePath),
                                       ),
                                     ),
                                     const Positioned(
@@ -165,7 +167,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             alignment: Alignment.centerLeft,
                             child: Stack(
                               children: <Widget>[
-                                // Ваш существующий код с O3D
+                                O3D(
+                                  src: 'assets/glb/knight_${user.level}lvl.glb',
+                                  controller: o3dController,
+                                  ar: true,
+                                  autoRotate: true,
+                                  cameraControls: true,
+                                  cameraTarget: CameraTarget(0, 2, 0),
+                                  cameraOrbit: CameraOrbit(0, 90, 90),
+                                  disableZoom: true,
+                                ),
                               ],
                             ),
                           ),
