@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:smolathon_mobile/help_classes/exports.dart';
+import 'package:smolathon_mobile/model/api/RoutesModel.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
 
 import '../../../router/router.dart';
@@ -13,42 +14,79 @@ class RouteListScreen extends StatefulWidget {
   State<RouteListScreen> createState() => _RouteListScreenState();
 }
 
+
+
+
+
 class _RouteListScreenState extends State<RouteListScreen> {
+
+  late List<Routes> _routes;
+  bool initialized = false;
+  late Future<List<Routes>> _futureRoutes;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance .addPostFrameCallback((_)=>
+    _futureRoutes = fetchData());
+  }
+
+  Future<List<Routes>> fetchData() async {
+    return Routes.getAllRoutes();
+  }
+
   Widget _body(var heigth, var width) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              index+=1;
-              return Column(children: [
-                ListTile(
-                  leading: const FlutterLogo(size: 64.0),
-                  title: Text('Маршрут $index',
-                      style: CustomTextStyles.listTitleTextStyle),
-                  onTap: () {
-                    AutoRouter.of(context).push(AboutRouteRoute(id: index.toString()));
-                    // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
-                  },
-                  isThreeLine: true,
-                  subtitle: const Text(
-                      'Описание: Он очень крутой проходит через все классные точки мира блин нафик очень советую его посетить все кто его посещали ставили 5 звёзд после посещения очень классная погода природа атмосфера ээээээээээ !',
-                      style: CustomTextStyles.listSecondTextStyle,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis),
+
+    return FutureBuilder<List<Routes>>(
+        future: _futureRoutes,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Ошибка загрузки данных'),
+            );
+          } else {
+            List<Routes> routes = snapshot.data!;
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      index += 1;
+                      return Column(children: [
+                        ListTile(
+                          leading: const FlutterLogo(size: 64.0),
+                          title: Text('Маршрут $index',
+                              style: CustomTextStyles.listTitleTextStyle),
+                          onTap: () {
+                            AutoRouter.of(context).push(
+                                AboutRouteRoute(id: index.toString()));
+                            // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
+                          },
+                          isThreeLine: true,
+                          subtitle: const Text(
+                              'Описание: Он очень крутой проходит через все классные точки мира блин нафик очень советую его посетить все кто его посещали ставили 5 звёзд после посещения очень классная погода природа атмосфера ээээээээээ !',
+                              style: CustomTextStyles.listSecondTextStyle,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        const Divider(
+                          height: 2,
+                          thickness: 0.5,
+                          color: Colors.grey,
+                        ),
+                      ]);
+                    },
+                    childCount: 20,
+                  ),
                 ),
-                const Divider(
-                  height: 2,
-                  thickness: 0.5,
-                  color: Colors.grey,
-                ),
-              ]);
-            },
-            childCount: 20,
-          ),
-        ),
-      ],
-    );
+              ],
+            );
+          }
+        });
   }
 
   CustomAppBar _appBar() {
