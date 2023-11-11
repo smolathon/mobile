@@ -1,0 +1,1 @@
+enum HTTP_METHOD {GET, POST, DELETE}
