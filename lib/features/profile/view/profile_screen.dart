@@ -20,227 +20,250 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   late String _selectedImagePath;
 
+  late User user;
+
+  late Future<User> _userData;
+
   @override
   void initState() {
     super.initState();
+    _userData = fetchData();
     _selectedImagePath = 'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg';
   }
 
-  Future<void> _pickImage() async {
-    final XFile? image =
-        await _imagePicker.pickImage(source: ImageSource.gallery);
+  Future<User> fetchData() async {
+    return User.getByUsername("test_user");
+  }
 
-    if (image != null) {
-      setState(() {
-        _selectedImagePath = image.path;
-      });
+  Future<void> _pickImage() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 10),
+              Text("Пожалуйста, подождите..."),
+            ],
+          ),
+        );
+      },
+      barrierDismissible: false,
+    );
+
+    try {
+      final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        setState(() {
+          _selectedImagePath = image.path;
+        });
+      }
+    } finally {
+      Navigator.of(context).pop();
     }
   }
 
-  O3DController o3dController = O3DController();
+  Widget _body(var height, var width) {
+    return FutureBuilder(
+      future: _userData,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Ошибка загрузки данных'),
+          );
+        } else {
+          User user = snapshot.data as User;
 
-  late User user = User(username: "крутой2012", email:"ochen'krutoy'chelovek@gmail.com", password: "52", role: "User");
-
-  Widget _body(var heigth, var width) {
-    int x = 2; // значение переменной x (уровень)
-    int? count = user.count; //колличество посищений мероприятия
-    String fileName =
-        'knight_${x}lvl.glb'; // формирование имени файла с использованием x
-    String filePath =
-        'assets/glb/$fileName'; // формирование полного пути к файлу
-    String strLvl = '''Рыцарь      ${x} уровня''';
-    String countStr = 'Количество посещений: ${count ?? "Загрузка..."}';
-    String mailStr = user.email ?? "";
-    String nikStr = user.username;
-
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: Column(children: [
-            Row(
-              children: [
-                Column(
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Column(
                   children: [
-                    CustomCard(
-                      width: width * 0.47,
-                      height: heigth * 0.24,
-                      color: Colors.white,
-                      child: InkWell(
-                        onTap: _pickImage,
-                        child: Stack(
+                    Row(
+                      children: [
+                        Column(
                           children: [
-                            CircleAvatar(
-                              radius: width * 0.22,
-                              backgroundColor: Colors.grey,
-                              child: CircleAvatar(
-                                radius: width * 0.205,
-                                backgroundImage:
-                                    NetworkImage(_selectedImagePath),
+                            CustomCard(
+                              width: width * 0.47,
+                              height: height * 0.24,
+                              color: Colors.white,
+                              child: InkWell(
+                                onTap: _pickImage,
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: width * 0.22,
+                                      backgroundColor: Colors.grey,
+                                      child: CircleAvatar(
+                                        radius: width * 0.205,
+                                        backgroundImage: NetworkImage(_selectedImagePath),
+                                      ),
+                                    ),
+                                    const Positioned(
+                                      bottom: 2,
+                                      right: 2,
+                                      child: CircleAvatar(
+                                        radius: 20,
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                        backgroundColor: Color(0xFF47b881),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            const Positioned(
-                              bottom: 2,
-                              right: 2,
-                              child: CircleAvatar(
-                                radius: 20,
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
+                            CustomCard(
+                              width: width * 0.47,
+                              height: height * 0.15,
+                              color: Colors.white,
+                              child: Center(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Colors.blue,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        Icons.shield_outlined,
+                                        size: 40,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    SizedBox(width: width * 0.03),
+                                    Flexible(
+                                      child: Text(
+                                        'Рыцарь ${user.level} уровня',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                backgroundColor: Color(0xFF47b881),
                               ),
                             ),
                           ],
                         ),
-                      ),
+                        CustomCard(
+                          width: width * 0.47,
+                          height: height * 0.4,
+                          color: Colors.white,
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Stack(
+                              children: <Widget>[
+                                // Ваш существующий код с O3D
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     CustomCard(
-                      width: width * 0.47,
-                      height: heigth * 0.15,
-                      color: Colors.white,
-                      child: Center(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
+                      width: width * 0.96,
+                      height: height * 0.1,
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.blue,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.person_outline,
+                              size: 40,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          SizedBox(width: width * 0.03),
+                          Text(
+                            user.username,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        CustomCard(
+                          width: width * 0.96,
+                          height: height * 0.1,
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.blue,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.mail_outline,
+                                  size: 40,
                                   color: Colors.blue,
-                                  width: 2.0,
                                 ),
                               ),
-                              child: Icon(
-                                Icons.shield_outlined,
-                                size: 40,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            SizedBox(width: width * 0.03),
-                            Flexible(
-                              child: Text(
-                                strLvl,
+                              SizedBox(width: width * 0.03),
+                              Text(
+                                user.email ?? "",
                                 style: TextStyle(fontSize: 20),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
+                        CustomCard(
+                          width: width * 0.96,
+                          height: height * 0.1,
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.blue,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.done_all,
+                                  size: 40,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              SizedBox(width: width * 0.03),
+                              Text(
+                                'Количество посещений: ${user.count ?? "Загрузка..."}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                CustomCard(
-                  width: width * 0.47,
-                  height: heigth * 0.4,
-                  color: Colors.white,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Stack(
-                      children: <Widget>[
-                        /*O3D(
-                          src: filePath,
-                          controller: o3dController,
-                          ar: true,
-                          autoRotate: true,
-                          cameraControls: true,
-                          cameraTarget: CameraTarget(0, 2, 0),
-                          cameraOrbit: CameraOrbit(0, 90, 90),
-                          disableZoom: true,
-                        ),*/
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            CustomCard(
-              width: width * 0.96,
-              height: heigth * 0.1,
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.blue,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.person_outline,
-                      size: 40,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  SizedBox(width: width * 0.03),
-                  Text(
-                    nikStr,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
               ),
-            ),
-            Column(
-              children: [
-                CustomCard(
-                  width: width * 0.96,
-                  height: heigth * 0.1,
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.blue,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.mail_outline,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      SizedBox(width: width * 0.03),
-                      Text(
-                        mailStr,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                CustomCard(
-                  width: width * 0.96,
-                  height: heigth * 0.1,
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.blue,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.done_all,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      SizedBox(width: width * 0.03),
-                      Text(
-                        countStr,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ]),
-        ),
-      ],
+            ],
+          );
+        }
+      },
     );
   }
 
@@ -253,10 +276,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context)  {
-    User.getByUsername("test_user").then((value) => user = value);
+  Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: _appBar(),
