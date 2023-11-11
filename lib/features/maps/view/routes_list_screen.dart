@@ -1,115 +1,138 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:smolathon_mobile/help_classes/exports.dart';
-import 'package:smolathon_mobile/model/api/RoutesModel.dart';
-import 'package:smolathon_mobile/widgets/exports.dart';
 
-import '../../../router/router.dart';
-
-@RoutePage()
-class RouteListScreen extends StatefulWidget {
-  const RouteListScreen({Key? key}) : super(key: key);
-
+class RoutesListScreen extends StatefulWidget {
   @override
-  State<RouteListScreen> createState() => _RouteListScreenState();
+  _RoutesListScreenState createState() => _RoutesListScreenState();
 }
 
-
-
-
-
-class _RouteListScreenState extends State<RouteListScreen> {
-
-  late List<Routes> _routes;
-  bool initialized = false;
-  Future<List<Routes>>? _futureRoutes;
-
-  @override
-  void initState() {
-    try {
-      super.initState();
-      WidgetsBinding.instance.addPostFrameCallback((_) =>
-      _futureRoutes = fetchData());
-    }catch(e){
-      print('alo $e');
-    }
-  }
-
-  Future<List<Routes>> fetchData() async {
-    return Routes.getAllRoutes();
-  }
-
-  Widget _body(var heigth, var width) {
-
-    return FutureBuilder<List<Routes>>(
-        future: _futureRoutes,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('Ошибка загрузки данных'),
-            );
-          } else {
-            List<Routes> routes = snapshot.data ?? List<Routes>.empty();
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      index += 1;
-                      return Column(children: [
-                        ListTile(
-                          leading: const FlutterLogo(size: 64.0),
-                          title: Text('Маршрут $index',
-                              style: CustomTextStyles.listTitleTextStyle),
-                          onTap: () {
-                            AutoRouter.of(context).push(
-                                AboutRouteRoute(id: index.toString()));
-                            // AutoRouter.of(context).replace(AboutRouteRoute(id: "123"));
-                          },
-                          isThreeLine: true,
-                          subtitle: const Text(
-                              'Описание: Он очень крутой проходит через все классные точки мира блин нафик очень советую его посетить все кто его посещали ставили 5 звёзд после посещения очень классная погода природа атмосфера ээээээээээ !',
-                              style: CustomTextStyles.listSecondTextStyle,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis),
-                        ),
-                        const Divider(
-                          height: 2,
-                          thickness: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ]);
-                    },
-                    childCount: routes.length,
-                  ),
-                ),
-              ],
-            );
-          }
-        });
-  }
-
-  CustomAppBar _appBar() {
-    return CustomAppBar(
-      title: 'Маршруты',
-      backgroundColor: MyColor.darkBlue3D5060,
-      iconColor: MyColor.midleGrey7CA3BA,
-    );
-  }
+class _RoutesListScreenState extends State<RoutesListScreen> {
+  List<GeoRoute> routes = [
+    GeoRoute(
+      id: '1',
+      title: 'Маршрут 1',
+      description: 'Описание маршрута 1',
+      points: [
+        GeoPoint(
+          id: '1',
+          title: 'Точка 1',
+          description: 'Описание точки 1',
+          latitude: 40.7128,
+          longitude: -74.0060,
+        ),
+        GeoPoint(
+          id: '2',
+          title: 'Точка 2',
+          description: 'Описание точки 2',
+          latitude: 34.0522,
+          longitude: -118.2437,
+        ),
+      ],
+    ),
+    GeoRoute(
+      id: '2',
+      title: 'Маршрут 2',
+      description: 'Описание маршрута 2',
+      points: [
+        GeoPoint(
+          id: '3',
+          title: 'Точка 3',
+          description: 'Описание точки 3',
+          latitude: 51.5074,
+          longitude: -0.1278,
+        ),
+        GeoPoint(
+          id: '4',
+          title: 'Точка 4',
+          description: 'Описание точки 4',
+          latitude: 35.6895,
+          longitude: 139.6917,
+        ),
+      ],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final height = mounted ? MediaQuery.of(context).size.height : 10;
-    final width = mounted ? MediaQuery.of(context).size.width : 10;
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
-      appBar: _appBar(),
-      body: _body(height, width),
-      drawer: ComplexDrawer(),
+      appBar: AppBar(
+        title: Text('Список маршрутов'),
+      ),
+      body: ListView.builder(
+        itemCount: routes.length,
+        itemBuilder: (context, index) {
+          GeoRoute route = routes[index];
+          return ListTile(
+            title: Text(route.title ?? ''),
+            subtitle: Text(route.description ?? ''),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RouteDetails(route: route),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
+}
+
+class RouteDetails extends StatelessWidget {
+  final GeoRoute route;
+
+  RouteDetails({required this.route});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(route.title ?? ''),
+      ),
+      body: ListView.builder(
+        itemCount: route.points.length,
+        itemBuilder: (context, index) {
+          GeoPoint point = route.points[index];
+          return ListTile(
+            title: Text(point.title ?? ''),
+            subtitle: Text(point.description ?? ''),
+            onTap: () {
+              // Действие при нажатии на точку маршрута
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class GeoRoute {
+  late String id;
+  String? title;
+  String? description;
+  List<GeoPoint> points;
+
+  GeoRoute({
+    required this.id,
+    this.title,
+    this.description,
+    this.points = const [],
+  });
+}
+
+class GeoPoint {
+  late String id;
+  String? title;
+  String? description;
+  double latitude;
+  double longitude;
+
+  GeoPoint({
+    required this.id,
+    this.title,
+    this.description,
+    required this.latitude,
+    required this.longitude,
+  });
 }

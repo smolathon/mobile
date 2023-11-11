@@ -56,7 +56,7 @@ abstract class _$AppRouter extends RootStackRouter {
     RouteListRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const RouteListScreen(),
+        child: RoutesListScreen(),
       );
     },
     SignInRoute.name: (routeData) {

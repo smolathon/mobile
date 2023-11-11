@@ -46,15 +46,21 @@ class Routes extends Model {
   }
 
   static Future<List<Routes>> getAllRoutes() async {
-    print("52 alo");
-    List<Routes> list = List<Routes>.empty(growable: true);
-    for (var element in JsonString(
-            await RequestMaker.request(url: "route/0", method: HTTP_METHOD.GET))
-        .decodedValueAsList) {
-      list.add(fromJson(element.toString()));
+    try {
+      List<Routes> list = List<Routes>.empty(growable: true);
+      final response =
+          await RequestMaker.request(url: "route/0", method: HTTP_METHOD.GET);
+      final jsonData = json.decode(response);
+      print(jsonData);
+      for (var element in jsonData) {
+        list.add(Routes.fromJson(element));
+      }
+
+      return list;
+    } catch (e) {
+      print("Error fetching routes: $e");
+      return List<Routes>.empty();
     }
-    print(list);
-    return list;
   }
 
   Routes(
