@@ -18,11 +18,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _body(var heigth, var width) {
     int x = 2; // значение переменной x (уровень)
+    int count = 3; //колличество посищений мероприятия
     String fileName =
         'knight_${x}lvl.glb'; // формирование имени файла с использованием x
     String filePath =
         'assets/glb/$fileName'; // формирование полного пути к файлу
-    String strLvl = 'Рыцарь ${x} уровня';
+    String strLvl = '''Рыцарь      ${x} уровня''';
+    String countStr = 'Количество посещений: ${count}';
+    String mailStr = '';
+    String nikStr = '';
 
     return CustomScrollView(
       slivers: <Widget>[
@@ -70,9 +74,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: width * 0.47,
                       height: heigth * 0.15,
                       color: Colors.white,
-                      child: Text(
-                        strLvl,
-                        style: CustomTextStyles.listTitleTextStyle,
+                      child: Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.blue,
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.shield_outlined,
+                                size: 40,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            SizedBox(width: width * 0.03),
+                            Flexible(
+                              child: Text(
+                                strLvl,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -102,33 +130,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             CustomCard(
-              width: width * 0.9,
-              height: heigth,
-              child: Text('data'),
+              width: width * 0.96,
+              height: heigth * 0.1,
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.person_outline,
+                      size: 40,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  SizedBox(width: width * 0.03),
+                  Text(
+                    nikStr,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             ),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(52))),
-                child: const Padding(
-                    padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
-                    child: Text(
-                      "Имя: Иван Крутой",
-                      style: TextStyle(fontSize: 20),
-                    ))),
-            SizedBox(
-              height: 0.025 * heigth,
+            Column(
+              children: [
+                CustomCard(
+                  width: width * 0.96,
+                  height: heigth * 0.1,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.blue,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.mail_outline,
+                          size: 40,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      SizedBox(width: width * 0.03),
+                      Text(
+                        mailStr,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+                CustomCard(
+                  width: width * 0.96,
+                  height: heigth * 0.1,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.blue,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.done_all,
+                          size: 40,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      SizedBox(width: width * 0.03),
+                      Text(
+                        countStr,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(52))),
-                child: const Padding(
-                    padding: EdgeInsets.fromLTRB(55, 10, 50, 15),
-                    child: Text(
-                      "Почта: krutoy2003@example.com",
-                      style: TextStyle(fontSize: 20),
-                    )))
           ]),
         ),
       ],
