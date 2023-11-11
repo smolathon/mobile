@@ -5,6 +5,8 @@ import 'package:smolathon_mobile/help_classes/exports.dart';
 import 'package:smolathon_mobile/widgets/appbar_widget.dart';
 import 'package:smolathon_mobile/widgets/exports.dart';
 
+import '../../../model/api/UserModel.dart';
+
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -16,17 +18,19 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   O3DController o3dController = O3DController();
 
+  late User user = User(username: "крутой2012", email:"ochen'krutoy'chelovek@gmail.com", password: "52", role: "User");
+
   Widget _body(var heigth, var width) {
     int x = 2; // значение переменной x (уровень)
-    int count = 3; //колличество посищений мероприятия
+    int? count = user.count; //колличество посищений мероприятия
     String fileName =
         'knight_${x}lvl.glb'; // формирование имени файла с использованием x
     String filePath =
         'assets/glb/$fileName'; // формирование полного пути к файлу
     String strLvl = '''Рыцарь      ${x} уровня''';
-    String countStr = 'Количество посещений: ${count}';
-    String mailStr = '';
-    String nikStr = '';
+    String countStr = 'Количество посещений: ${count ?? "Загрузка..."}';
+    String mailStr = user.email ?? "";
+    String nikStr = user.username;
 
     return CustomScrollView(
       slivers: <Widget>[
@@ -113,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: Alignment.centerLeft,
                     child: Stack(
                       children: <Widget>[
-                        O3D(
+                        /*O3D(
                           src: filePath,
                           controller: o3dController,
                           ar: true,
@@ -122,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           cameraTarget: CameraTarget(0, 2, 0),
                           cameraOrbit: CameraOrbit(0, 90, 90),
                           disableZoom: true,
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
@@ -229,7 +233,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    User.getByUsername("test_user").then((value) => user = value);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(

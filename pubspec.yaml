@@ -19,6 +19,8 @@ dependencies:
   flutter_map: ^5.0.0
   latlong2: ^0.9.0
   flutter_map_directions: ^0.0.5
+  http: ^1.1.0
+  json_string: ^3.0.1
 
 dev_dependencies:
   flutter_test:
