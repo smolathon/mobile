@@ -22,13 +22,17 @@ class _RouteListScreenState extends State<RouteListScreen> {
 
   late List<Routes> _routes;
   bool initialized = false;
-  late Future<List<Routes>> _futureRoutes;
+  Future<List<Routes>>? _futureRoutes;
 
   @override
   void initState() {
-    super.initState();
-    WidgetsBinding.instance .addPostFrameCallback((_)=>
-    _futureRoutes = fetchData());
+    try {
+      super.initState();
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+      _futureRoutes = fetchData());
+    }catch(e){
+      print('alo $e');
+    }
   }
 
   Future<List<Routes>> fetchData() async {
@@ -41,15 +45,15 @@ class _RouteListScreenState extends State<RouteListScreen> {
         future: _futureRoutes,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Ошибка загрузки данных'),
             );
           } else {
-            List<Routes> routes = snapshot.data!;
+            List<Routes> routes = snapshot.data ?? List<Routes>.empty();
             return CustomScrollView(
               slivers: <Widget>[
                 SliverList(
@@ -80,7 +84,7 @@ class _RouteListScreenState extends State<RouteListScreen> {
                         ),
                       ]);
                     },
-                    childCount: 20,
+                    childCount: routes.length,
                   ),
                 ),
               ],
