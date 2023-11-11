@@ -12,7 +12,7 @@ class CustomTextField extends StatefulWidget {
     this.focusColor = Colors.white,
     this.enabledColor = Colors.grey,
     this.fillColor = Colors.blue,
-    this.isPassword = false,
+    this.isPassword = false, required TextEditingController controller,
   });
 
   @override

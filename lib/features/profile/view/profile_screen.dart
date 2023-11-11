@@ -26,7 +26,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     _userData = fetchData();
-    _selectedImagePath = 'https://i.ytimg.com/vi/OgGGaX7rOpw/maxresdefault.jpg';
+    _selectedImagePath =
+        'https://thumbs.dreamstime.com/b/та-исман-ш-ема-рыцаря-73835622.jpg';
   }
 
   Future<User> fetchData() async {
@@ -81,6 +82,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         } else {
           User user = snapshot.data!;
+          // Обновляем _selectedImagePath
+          _selectedImagePath = user.image ??
+              'https://thumbs.dreamstime.com/b/та-исман-ш-ема-рыцаря-73835622.jpg';
 
           return CustomScrollView(
             slivers: <Widget>[
