@@ -7,7 +7,7 @@ import 'package:smolathon_mobile/model/RequestMaker.dart';
 import 'package:smolathon_mobile/model/RequestMethods.dart';
 import 'package:smolathon_mobile/model/api/Model.dart';
 
-class Point extends Model {
+class Point extends MainModel {
   late String id;
   String? title;
   String? description;

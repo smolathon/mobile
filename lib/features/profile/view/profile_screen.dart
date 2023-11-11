@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             alignment: Alignment.centerLeft,
                             child: Stack(
                               children: <Widget>[
-                                O3D(
+                                /*O3D(
                                   src: 'assets/glb/knight_${user.level}lvl.glb',
                                   controller: o3dController,
                                   ar: true,
@@ -188,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   cameraTarget: CameraTarget(0, 2, 0),
                                   cameraOrbit: CameraOrbit(0, 90, 90),
                                   disableZoom: true,
-                                ),
+                                ),*/
                               ],
                             ),
                           ),

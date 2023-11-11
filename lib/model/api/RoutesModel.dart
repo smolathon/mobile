@@ -8,7 +8,7 @@ import 'package:smolathon_mobile/model/RequestMaker.dart';
 import 'package:smolathon_mobile/model/RequestMethods.dart';
 import 'package:smolathon_mobile/model/api/Model.dart';
 
-class Routes extends Model {
+class Routes extends MainModel {
   late String id;
   String? title;
   String? description;
@@ -23,8 +23,8 @@ class Routes extends Model {
       description: jsonString["description"],
       img: jsonString["image"],
       bounds: LatLngBounds(
-          LatLng(jsonString["edge_1"]["x"], jsonString["edge_1"]["y"]),
-          LatLng(jsonString["edge_2"]["x"], jsonString["edge_2"]["y"])),
+          LatLng(jsonString["edge_1"][0], jsonString["edge_1"][1]),
+          LatLng(jsonString["edge_2"][0], jsonString["edge_2"][1])),
     );
   }
 
@@ -52,9 +52,12 @@ class Routes extends Model {
           await RequestMaker.request(url: "route/0", method: HTTP_METHOD.GET);
       final jsonData = json.decode(response);
       print(jsonData);
-      for (var element in jsonData) {
+      /*for (var element in jsonData) {
         list.add(Routes.fromJson(element));
-      }
+      }*/
+      list = (jsonData["routes"] as List<dynamic>)
+          .map((data) => Routes.fromJson(data))
+          .toList(growable: false);
 
       return list;
     } catch (e) {

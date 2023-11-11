@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smolathon_mobile/widgets/card_widget.dart';
+import 'package:smolathon_mobile/model/api/RoutesModel.dart';
+
 
 class RoutesListScreen extends StatefulWidget {
   @override
@@ -7,7 +9,7 @@ class RoutesListScreen extends StatefulWidget {
 }
 
 class _RoutesListScreenState extends State<RoutesListScreen> {
-  List<GeoRoute> routes = [
+/*  List<GeoRoute> routes = [
     GeoRoute(
       id: '1',
       title: 'Маршрут 1',
@@ -50,7 +52,17 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
         ),
       ],
     ),
-  ];
+  ];*/
+
+  @override
+  void initState() {
+    super.initState();
+    Routes.getAllRoutes().then((value) => setState(() {
+      routes = value;
+    }));
+  }
+
+  List<Routes> routes = List.empty();
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +77,18 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
       body: ListView.builder(
         itemCount: routes.length,
         itemBuilder: (context, index) {
-          GeoRoute route = routes[index];
-          return CustomCard(
-            width: width * 0.9,
-            height: height * 0.1,
-            child:ListTile(
+          Routes route = routes[index];
+          return ListTile(
             title: Text(route.title ?? ''),
             subtitle: Text(route.description ?? ''),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RouteDetails(route: route),
+                  builder: (context) => RouteDetails(route: GeoRoute(id: route.id, title: route.title, description: route.description)),
                 ),
               );
-            },),
-          );
+            },);
         },
       ),
     );

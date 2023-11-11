@@ -6,7 +6,7 @@ import 'package:smolathon_mobile/model/RequestMaker.dart';
 import 'package:smolathon_mobile/model/RequestMethods.dart';
 import 'package:smolathon_mobile/model/api/Model.dart';
 
-class User extends Model {
+class User extends MainModel {
   late String username;
   String? email;
   String? password;

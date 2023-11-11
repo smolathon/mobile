@@ -1,3 +1,3 @@
-abstract class Model{
+abstract class MainModel{
   Object toJson();
 }
