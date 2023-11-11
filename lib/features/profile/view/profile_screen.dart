@@ -12,7 +12,6 @@ import '../../../model/api/UserModel.dart';
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smolathon_mobile/widgets/card_widget.dart';
 
 class RoutesListScreen extends StatefulWidget {
   @override
@@ -53,6 +54,10 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Список маршрутов'),
@@ -61,7 +66,10 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
         itemCount: routes.length,
         itemBuilder: (context, index) {
           GeoRoute route = routes[index];
-          return ListTile(
+          return CustomCard(
+            width: width * 0.9,
+            height: height * 0.1,
+            child:ListTile(
             title: Text(route.title ?? ''),
             subtitle: Text(route.description ?? ''),
             onTap: () {
@@ -71,7 +79,7 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
                   builder: (context) => RouteDetails(route: route),
                 ),
               );
-            },
+            },),
           );
         },
       ),
@@ -86,6 +94,10 @@ class RouteDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(route.title ?? ''),
@@ -94,12 +106,16 @@ class RouteDetails extends StatelessWidget {
         itemCount: route.points.length,
         itemBuilder: (context, index) {
           GeoPoint point = route.points[index];
-          return ListTile(
-            title: Text(point.title ?? ''),
-            subtitle: Text(point.description ?? ''),
-            onTap: () {
-              // Действие при нажатии на точку маршрута
-            },
+          return CustomCard(
+            width: width * 0.9,
+            height: height * 0.1,
+            child: ListTile(
+              title: Text(point.title ?? ''),
+              subtitle: Text(point.description ?? ''),
+              onTap: () {
+                // Действие при нажатии на точку маршрута
+              },
+            ),
           );
         },
       ),
